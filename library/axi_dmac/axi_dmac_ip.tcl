@@ -98,8 +98,10 @@ adi_set_bus_dependency "s_axis" "s_axis" \
 	"(spirit:decode(id('MODELPARAM_VALUE.DMA_TYPE_SRC')) = 1)"
 adi_set_bus_dependency "m_axis" "m_axis" \
 	"(spirit:decode(id('MODELPARAM_VALUE.DMA_TYPE_DEST')) = 1)"
-adi_set_ports_dependency "fifo_rd" \
-	"(spirit:decode(id('MODELPARAM_VALUE.DMA_TYPE_DEST')) = 2)"
+adi_set_ports_dependency "sync" \
+	"(spirit:decode(id('MODELPARAM_VALUE.SYNC_TRANSFER_START')) = 1) && \
+	 ((spirit:decode(id('MODELPARAM_VALUE.DMA_TYPE_SRC')) != 1) || \
+	 (spirit:decode(id('MODELPARAM_VALUE.AXIS_TUSER_SYNC')) != 1))"
 adi_set_ports_dependency "dest_diag_level_bursts" \
 	"(spirit:decode(id('MODELPARAM_VALUE.ENABLE_DIAGNOSTICS_IF')) = 1)"
 
@@ -201,7 +203,6 @@ adi_add_bus "fifo_wr" "slave" \
 		{"fifo_wr_en" "EN"} \
 		{"fifo_wr_din" "DATA"} \
 		{"fifo_wr_overflow" "OVERFLOW"} \
-		{"fifo_wr_sync" "SYNC"} \
 		{"fifo_wr_xfer_req" "XFER_REQ"} \
 	}
 
@@ -231,7 +232,7 @@ foreach port {"m_dest_axi_aresetn" "m_src_axi_aresetn" "m_sg_axi_aresetn" \
 	set_property DRIVER_VALUE "0" [ipx::get_ports $port]
 }
 
-foreach port {"s_axis_user" "fifo_wr_sync"} {
+foreach port {"s_axis_user" "sync"} {
 	set_property DRIVER_VALUE "1" [ipx::get_ports $port]
 }
 
@@ -279,6 +280,7 @@ foreach {k v} { \
         "SYNC_TRANSFER_START" "false" \
         "AXI_SLICE_SRC" "false" \
         "AXI_SLICE_DEST" "false" \
+        "AXIS_TUSER_SYNC" "true" \
         "DISABLE_DEBUG_REGISTERS" "false" \
         "ENABLE_DIAGNOSTICS_IF" "false" \
         "CACHE_COHERENT" "false" \
@@ -360,14 +362,16 @@ foreach {dir group} [list "SRC" $src_group "DEST" $dest_group] {
 	] $p
 }
 
-set p [ipgui::get_guiparamspec -name "SYNC_TRANSFER_START" -component $cc]
+set p [ipgui::get_guiparamspec -name "AXIS_TUSER_SYNC" -component $cc]
 ipgui::move_param -component $cc -order 4 $p -parent $src_group
 set_property -dict [list \
-	"display_name" "Transfer Start Synchronization Support" \
+	"tooltip" "Transfer Start Synchronization on TUSER"
 ] $p
 set_property -dict [list \
-	"enablement_tcl_expr" "\$DMA_TYPE_SRC != 0" \
-] [ipx::get_user_parameters SYNC_TRANSFER_START -of_objects $cc]
+	"display_name" "TUSER Synchronization" \
+	"enablement_tcl_expr" "\$DMA_TYPE_SRC == 1 && \$SYNC_TRANSFER_START == true" \
+	"enablement_value" "true" \
+] [ipx::get_user_parameters AXIS_TUSER_SYNC -of_objects $cc]
 
 set p [ipgui::get_guiparamspec -name "DMA_AXI_PROTOCOL_SG" -component $cc]
 ipgui::move_param -component $cc -order 0 $p -parent $sg_group
@@ -468,8 +472,14 @@ set_property -dict [list \
 	"display_name" "2D Transfer Support" \
 ] $p
 
-set p [ipgui::get_guiparamspec -name "CACHE_COHERENT" -component $cc]
+set p [ipgui::get_guiparamspec -name "SYNC_TRANSFER_START" -component $cc]
 ipgui::move_param -component $cc -order 3 $p -parent $feature_group
+set_property -dict [list \
+	"display_name" "Transfer Start Synchronization Support" \
+] $p
+
+set p [ipgui::get_guiparamspec -name "CACHE_COHERENT" -component $cc]
+ipgui::move_param -component $cc -order 4 $p -parent $feature_group
 set_property -dict [list \
 	"tooltip" "Assume DMA ports ensure cache coherence (e.g. Ultrascale HPC port)" \
 ] $p
