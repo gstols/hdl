@@ -41,7 +41,7 @@ switch $INTF {
     
     switch $NUM_OF_SDI {
       1 {
-        set_property -dict {PACKAGE_PIN M20     IOSTANDARD LVCMOS25} [get_ports ad7606_spi_sdi[0]]  ; ## G07 FMC_LPC_LA00_CC_N
+        set_property -dict {PACKAGE_PIN M20     IOSTANDARD LVCMOS25} [get_ports sdi]  ; ## G07 FMC_LPC_LA00_CC_N
         }
       2 {
         set_property -dict {PACKAGE_PIN M20     IOSTANDARD LVCMOS25} [get_ports ad7606_spi_sdi[0]]  ; ## G07 FMC_LPC_LA00_CC_N
@@ -64,10 +64,13 @@ switch $INTF {
         set_property -dict {PACKAGE_PIN J22     IOSTANDARD LVCMOS25} [get_ports ad7606_spi_sdi[7]]  ; ## G13 FMC_LPC_LA08_N
       }
     }
-    
-    set_property -dict {PACKAGE_PIN M19     IOSTANDARD LVCMOS25} [get_ports ad7606_spi_sclk]    ; ## G06 FMC_LPC_LA00_CC_P
-    set_property -dict {PACKAGE_PIN N22     IOSTANDARD LVCMOS25} [get_ports ad7606_spi_sdo]     ; ## G09 FMC_LPC_LA03_P
-    set_property -dict {PACKAGE_PIN M21     IOSTANDARD LVCMOS25} [get_ports ad7606_spi_cs]      ; ## H10 FMC_LPC_LA04_P
+#set_property -dict {PACKAGE_PIN P22      IOSTANDARD LVCMOS25} [get_ports sclk]      ; ## FMC_LPC_LA03_N
+#set_property -dict {PACKAGE_PIN L21      IOSTANDARD LVCMOS25} [get_ports sdo]       ; ## FMC_LPC_LA06_P
+#set_property -dict {PACKAGE_PIN M19      IOSTANDARD LVCMOS25} [get_ports sdi]    ; ## FMC_LPC_LA00_CC_P
+#set_property -dict {PACKAGE_PIN N20      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_sdi[1]]    ; ## FMC_LPC_LA01_C    
+    set_property -dict {PACKAGE_PIN M19     IOSTANDARD LVCMOS25} [get_ports sclk]    ; ## G06 FMC_LPC_LA00_CC_P
+    set_property -dict {PACKAGE_PIN N22     IOSTANDARD LVCMOS25} [get_ports sdo]     ; ## G09 FMC_LPC_LA03_P
+    set_property -dict {PACKAGE_PIN M21     IOSTANDARD LVCMOS25} [get_ports cs]      ; ## H10 FMC_LPC_LA04_P
     
     # rename auto-generated clock for SPIEngine to spi_clk - 160MHz
     # NOTE: clk_fpga_0 is the first PL fabric clock, also called $sys_cpu_clk

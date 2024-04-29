@@ -68,7 +68,7 @@ set_property -dict [list CONFIG.EDGE 1] [get_bd_cells busy_capture]
 ad_connect spi_clk busy_capture/clk
 ad_connect busy_capture/rst GND
 ad_connect spi_clk busy_sync/out_clk
-ad_connect busy_sync/in_bits rx_busy
+#ad_connect busy_sync/in_bits rx_busy
 ad_connect busy_sync/out_bits busy_capture/signal_in
 
 if {$SER_PAR_N == 1} {
@@ -154,7 +154,7 @@ if {$SER_PAR_N == 1} {
 ad_connect  $sys_cpu_clk spi_clkgen/clk
 ad_connect  spi_clk spi_clkgen/clk_0
   
-ad_connect  ad7616_pwm_gen/pwm_0 rx_cnvst
+#ad_connect  ad7616_pwm_gen/pwm_0 rx_cnvst
 ad_connect  $sys_cpu_clk ad7616_pwm_gen/s_axi_aclk
 ad_connect  sys_cpu_resetn ad7616_pwm_gen/s_axi_aresetn
 ad_connect  spi_clk ad7616_pwm_gen/ext_clk

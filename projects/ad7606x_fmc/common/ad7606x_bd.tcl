@@ -98,8 +98,6 @@ switch $INTF {
     ad_connect  rx_wr_n axi_ad7606x/rx_wr_n
     
     ad_connect  rx_cs_n axi_ad7606x/rx_cs_n
-    ad_connect  rx_cnvst_n ad7606_pwm_gen/pwm_0
-    ad_connect  rx_busy axi_ad7606x/rx_busy
     ad_connect  rx_first_data axi_ad7606x/first_data
     
     ad_connect  sys_cpu_clk axi_ad7606x_dma/s_axi_aclk
@@ -194,7 +192,7 @@ switch $INTF {
     ad_connect sys_cpu_resetn $hier_spi_engine/resetn
     ad_connect sys_cpu_resetn axi_ad7606x_dma/m_dest_axi_aresetn
     
-    ad_connect rx_cnvst_n ad7606_pwm_gen/pwm_0
+    #ad_connect rx_cnvst_n ad7606_pwm_gen/pwm_0
     
     ad_connect axi_ad7606x_dma/s_axis $hier_spi_engine/m_axis_sample
     

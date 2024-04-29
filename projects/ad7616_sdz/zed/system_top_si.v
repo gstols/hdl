@@ -83,14 +83,14 @@ module system_top (
 
   input                   otg_vbusoc,
 
-  output                  ad7616_spi_sclk,
-  output                  ad7616_spi_sdo,
-  input       [ 1:0]      ad7616_spi_sdi,
-  output                  ad7616_spi_cs,
+  output                  sclk,
+  output                  sdo,
+  input                   sdi,
+//  output                  ad7616_spi_cs,
 
   output                  adc_reset_n,
-  output                  adc_cnvst,
-  input                   adc_busy,
+  inout                   adc_cnvst,
+  inout                   adc_busy,
   output                  adc_seq_en,
   output      [ 1:0]      adc_hw_rngsel,
   output      [ 2:0]      adc_chsel,
@@ -114,12 +114,15 @@ module system_top (
   // instantiations
 
   ad_iobuf #(
-    .DATA_WIDTH(12)
+    .DATA_WIDTH(15)
   ) i_iobuf_adc_cntrl (
-    .dio_t (gpio_t[43:32]),
-    .dio_i (gpio_o[43:32]),
-    .dio_o (gpio_i[43:32]),
-    .dio_p ({adc_reset_n,        // 43
+    .dio_t (gpio_t[46:32]),
+    .dio_i (gpio_o[46:32]),
+    .dio_o (gpio_i[46:32]),
+    .dio_p ({adc_ser1w,         //46
+             adc_busy,          //45
+             adc_cnvst,        // 44
+             adc_reset_n,        // 43
              adc_hw_rngsel,      // 42:41
              adc_os,             // 40:38
              adc_seq_en,         // 37
@@ -135,7 +138,7 @@ module system_top (
     .dio_o(gpio_i[31:0]),
     .dio_p(gpio_bd));
 
-  assign gpio_i[63:44] = gpio_o[63:44];
+  assign gpio_i[63:47] = gpio_o[63:47];
 
   ad_iobuf #(
     .DATA_WIDTH(2)
@@ -198,11 +201,16 @@ module system_top (
     .iic_mux_sda_t (iic_mux_sda_t_s),
     .otg_vbusoc (otg_vbusoc),
     .spdif (spdif),
-    .ad7616_spi_sdo (ad7616_spi_sdo),
-    .ad7616_spi_sdi (ad7616_spi_sdi),
-    .ad7616_spi_cs (ad7616_spi_cs),
-    .ad7616_spi_sclk (ad7616_spi_sclk),
-    .rx_busy (adc_busy),
-    .rx_cnvst (adc_cnvst));
+    .spi0_clk_i (1'b0),
+    .spi0_clk_o (sclk),
+    .spi0_csn_0_o (),
+    .spi0_csn_1_o (),
+    .spi0_csn_2_o (),
+    .spi0_csn_i (1'b1),
+    .spi0_sdi_i (sdi),
+    .spi0_sdo_i (1'b0),
+    .spi0_sdo_o (sdo),
+    .rx_busy (1'b0),
+    .rx_cnvst ());
 
 endmodule

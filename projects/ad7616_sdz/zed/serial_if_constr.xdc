@@ -7,10 +7,10 @@
 
 # data interface
 
-set_property -dict {PACKAGE_PIN P22      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_sclk]      ; ## FMC_LPC_LA03_N
-set_property -dict {PACKAGE_PIN L21      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_sdo]       ; ## FMC_LPC_LA06_P
-set_property -dict {PACKAGE_PIN M19      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_sdi[0]]    ; ## FMC_LPC_LA00_CC_P
-set_property -dict {PACKAGE_PIN N20      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_sdi[1]]    ; ## FMC_LPC_LA01_CC_N
+set_property -dict {PACKAGE_PIN P22      IOSTANDARD LVCMOS25} [get_ports sclk]      ; ## FMC_LPC_LA03_N
+set_property -dict {PACKAGE_PIN L21      IOSTANDARD LVCMOS25} [get_ports sdo]       ; ## FMC_LPC_LA06_P
+set_property -dict {PACKAGE_PIN M19      IOSTANDARD LVCMOS25} [get_ports sdi]    ; ## FMC_LPC_LA00_CC_P
+#set_property -dict {PACKAGE_PIN N20      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_sdi[1]]    ; ## FMC_LPC_LA01_CC_N
 set_property -dict {PACKAGE_PIN M22      IOSTANDARD LVCMOS25} [get_ports ad7616_spi_cs]        ; ## FMC_LPC_LA04_N
 
 # control lines
@@ -30,4 +30,4 @@ set_property -dict {PACKAGE_PIN L18      IOSTANDARD LVCMOS25} [get_ports adc_os[
 set_property -dict {PACKAGE_PIN N19      IOSTANDARD LVCMOS25} [get_ports adc_os[2]]           ; ## FMC_LPC_LA01_CC_P
 set_property -dict {PACKAGE_PIN R21      IOSTANDARD LVCMOS25} [get_ports adc_burst]           ; ## FMC_LPC_LA09_N
 set_property -dict {PACKAGE_PIN P18      IOSTANDARD LVCMOS25} [get_ports adc_crcen]           ; ## FMC_LPC_LA02_N
-
+set_property -dict {PACKAGE_PIN K18      IOSTANDARD LVCMOS25} [get_ports adc_ser1w]           ; ## FMC_LPC_LA05_N

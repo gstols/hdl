@@ -24,3 +24,4 @@ L18     FMC_LPC_CLK0_M2C_P   DB14             adc_os[1]         LVCOMOS25     #N
 N19     FMC_LPC_LA01_CC_P    DB15             adc_os[2]         LVCOMOS25     #N/A
 R21     FMC_LPC_LA09_N       WRn              adc_burst         LVCOMOS25     #N/A
 P18     FMC_LPC_LA02_N       DB5              adc_crcen         LVCOMOS25     #N/A
+K18     FMC_LPC_LA05_N       DB4              adc_ser1w         LVCOMOS25     #N/A
