@@ -116,15 +116,12 @@ module system_top #(
     // instantiations
 
   ad_iobuf #(
-    .DATA_WIDTH(10)
+   .DATA_WIDTH(8)
   ) i_iobuf_adc_cntrl (
-    .dio_t (gpio_t[41:32]),
-    .dio_i (gpio_o[41:32]),
-    .dio_o (gpio_i[41:32]),
-    .dio_p ({
-             adc_busy,        // 41
-             adc_cnvst_n,     // 40
-             adc_serpar,      // 39
+    .dio_t (gpio_t[39:32]),
+    .dio_i (gpio_o[39:32]),
+    .dio_o (gpio_i[39:32]),
+    .dio_p ({adc_serpar,      // 39
              adc_first_data,  // 38
              adc_reset,       // 37
              adc_stby,        // 36
@@ -200,21 +197,11 @@ module system_top #(
     .iic_mux_sda_t (iic_mux_sda_t_s),
     .otg_vbusoc (otg_vbusoc),
     .spdif (spdif),
-    //.ad7606_spi_sdo (ad7606_spi_sdo),
-    //.ad7606_spi_sdi (ad7606_spi_sdi),
-    //.ad7606_spi_cs (ad7606_spi_cs),
-    //.ad7606_spi_sclk (ad7606_spi_sclk),
-    .spi0_clk_i (1'b0),
-    .spi0_clk_o (sclk),
-    .spi0_csn_0_o (cs),
-    .spi0_csn_1_o (),
-    .spi0_csn_2_o (),
-    .spi0_csn_i (1'b1),
-    .spi0_sdi_i (sdi),
-    .spi0_sdo_i (1'b0),
-    .spi0_sdo_o (sdo),
-
-    .rx_busy (1'b0),
-    .rx_cnvst_n ());
+    .ad7606_spi_sdo (ad7606_spi_sdo),
+    .ad7606_spi_sdi (ad7606_spi_sdi),
+    .ad7606_spi_cs (ad7606_spi_cs),
+    .ad7606_spi_sclk (ad7606_spi_sclk),
+    .rx_busy (adc_busy),
+    .rx_cnvst_n (adc_cnvst_n));
 
 endmodule
