@@ -10,7 +10,7 @@ Here are some pointers to help you:
   * HDL Doc: https://wiki.analog.com/resources/eval/user-guides/ad7606x-fmc/hdl
   * NO-OS Drivers: [AD7606 - No-OS Driver](https://wiki.analog.com/resources/tools-software/uc-drivers/ad7606)
   * Linux Drivers: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/axi-adc-hdl
-## Building, Generating Bit Files 
+## Building, Generating Bit Files
 
 IMPORTANT: Set AD7606X device model, ADC Read Mode option and external clock option
 
@@ -24,3 +24,16 @@ EXT_CLK - Defines the external clock option for the ADC clock: 0 - No, 1 - Yes.
 
 For the serial interface, the following parameters will be used in make command: DEV_CONFIG, INTF, NUM_OF_SDI.
 For the parallel interface, the following parameters will be used in make command: DEV_CONFIG, INTF,EXT_CLK.
+
+**Example:**
+
+make DEV_CONFIG=0 INTF=1 NUM_OF_SDI=1
+make DEV_CONFIG=1 INTF=1 NUM_OF_SDI=2
+make DEV_CONFIG=2 INTF=1 NUM_OF_SDI=1
+make DEV_CONFIG=2 INTF=1 NUM_OF_SDI=2
+make DEV_CONFIG=2 INTF=1 NUM_OF_SDI=4
+make DEV_CONFIG=2 INTF=1 NUM_OF_SDI=8
+make DEV_CONFIG=0 INTF=0 EXT_CLK=0
+make DEV_CONFIG=1 INTF=0 EXT_CLK=0
+make DEV_CONFIG=2 INTF=0 EXT_CLK=0
+...
