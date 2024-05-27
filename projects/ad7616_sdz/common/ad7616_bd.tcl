@@ -139,7 +139,6 @@ if {$SER_PAR_N == 1} {
   ad_connect  $sys_cpu_clk axi_ad7616_dma/fifo_wr_clk
   ad_connect  axi_ad7616/adc_valid axi_ad7616_dma/fifo_wr_en
   ad_connect  axi_ad7616/adc_data axi_ad7616_dma/fifo_wr_din
-  ad_connect  axi_ad7616/adc_sync axi_ad7616_dma/fifo_wr_sync
 
   ad_connect busy_capture/signal_out axi_ad7616/rx_trigger
   ad_connect busy_sync/out_resetn sys_cpu_resetn
