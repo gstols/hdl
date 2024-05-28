@@ -36,11 +36,11 @@ set_instance_parameter_value spi_engine_interconnect_0 {NUM_OF_SDI} {1}
 
 # bridges
 
-add_instance clock_bridge_0 altera_clock_bridge 22.1
+add_instance clock_bridge_0 altera_clock_bridge
 set_instance_parameter_value clock_bridge_0 {EXPLICIT_CLOCK_RATE} {0.0}
 set_instance_parameter_value clock_bridge_0 {NUM_CLOCK_OUTPUTS} {1}
 
-add_instance reset_bridge_0 altera_reset_bridge 22.1
+add_instance reset_bridge_0 altera_reset_bridge
 set_instance_parameter_value reset_bridge_0 {ACTIVE_LOW_RESET} {1}
 set_instance_parameter_value reset_bridge_0 {NUM_RESET_OUTPUTS} {1}
 set_instance_parameter_value reset_bridge_0 {SYNCHRONOUS_EDGES} {none}
