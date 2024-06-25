@@ -99,7 +99,7 @@ switch $INTF {
 
     ad_connect rx_cs_n axi_ad7606x/rx_cs_n
     ad_connect rx_cnvst_n ad7606_pwm_gen/pwm_0
-    ad_connect rx_busy axi_ad7606x/rx_busy
+    # ad_connect rx_busy axi_ad7606x/rx_busy
     ad_connect rx_first_data axi_ad7606x/first_data
 
     ad_connect sys_cpu_clk axi_ad7606x_dma/s_axi_aclk
@@ -170,7 +170,7 @@ switch $INTF {
 
     ad_connect busy_sync/out_resetn $hier_spi_engine/${hier_spi_engine}_axi_regmap/spi_resetn
     ad_connect spi_clk busy_sync/out_clk
-    ad_connect busy_sync/in_bits rx_busy
+    #ad_connect busy_sync/in_bits rx_busy
     ad_connect busy_sync/out_bits busy_capture/signal_in
     ad_connect busy_capture/signal_out $hier_spi_engine/trigger
 
