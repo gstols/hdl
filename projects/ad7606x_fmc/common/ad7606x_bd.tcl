@@ -18,7 +18,7 @@ puts "build parameters: NUM_OF_SDI: $NUM_OF_SDI"
 puts "build parameters: EXT_CLK: $EXT_CLK"
 
 # control lines
-create_bd_port -dir I rx_busy
+#create_bd_port -dir I rx_busy
 create_bd_port -dir O rx_cnvst_n
 
 # axi_pwm_gen
@@ -99,7 +99,6 @@ switch $INTF {
 
     ad_connect rx_cs_n axi_ad7606x/rx_cs_n
     ad_connect rx_cnvst_n ad7606_pwm_gen/pwm_0
-    # ad_connect rx_busy axi_ad7606x/rx_busy
     ad_connect rx_first_data axi_ad7606x/first_data
 
     ad_connect sys_cpu_clk axi_ad7606x_dma/s_axi_aclk
@@ -161,18 +160,17 @@ switch $INTF {
     ad_ip_parameter ad7606_pwm_gen CONFIG.PULSE_0_WIDTH 1
 
      # trigger to BUSY's negative edge
-    create_bd_cell -type module -reference sync_bits busy_sync
-    create_bd_cell -type module -reference ad_edge_detect busy_capture
-    set_property -dict [list CONFIG.EDGE 1] [get_bd_cells busy_capture]
+    # create_bd_cell -type module -reference sync_bits busy_sync
+    # create_bd_cell -type module -reference ad_edge_detect busy_capture
+    # set_property -dict [list CONFIG.EDGE 1] [get_bd_cells busy_capture]
 
-    ad_connect spi_clk busy_capture/clk
-    ad_connect busy_capture/rst GND
+    # ad_connect spi_clk busy_capture/clk
+    # ad_connect busy_capture/rst GND
 
-    ad_connect busy_sync/out_resetn $hier_spi_engine/${hier_spi_engine}_axi_regmap/spi_resetn
-    ad_connect spi_clk busy_sync/out_clk
-    #ad_connect busy_sync/in_bits rx_busy
-    ad_connect busy_sync/out_bits busy_capture/signal_in
-    ad_connect busy_capture/signal_out $hier_spi_engine/trigger
+    # ad_connect busy_sync/out_resetn $hier_spi_engine/${hier_spi_engine}_axi_regmap/spi_resetn
+    # ad_connect spi_clk busy_sync/out_clk
+    # ad_connect busy_sync/out_bits busy_capture/signal_in
+    # ad_connect busy_capture/signal_out $hier_spi_engine/trigger
 
     # dma
     ad_ip_parameter axi_ad7606x_dma CONFIG.DMA_TYPE_SRC 1

@@ -207,7 +207,7 @@ module system_top #(
     .spi0_csn_2_o (),
     .spi0_csn_i (1'b1),
     .spi0_sdo_i (1'b0),
-    .rx_busy (1'b0),
+    //.rx_busy (1'b0),
     .rx_cnvst_n (adc_cnvst_n));
 
 endmodule
